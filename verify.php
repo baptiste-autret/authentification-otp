@@ -20,7 +20,7 @@ if (!empty($_POST["codeVerif"]) && !empty($_POST["email"])) {
 
         if ($codeInput === $codeDB) {
 
-            // Si c’est OK → on supprime le code
+            // Si c’est OK, on supprime le code
             $stmt = $pdo->prepare("UPDATE users SET totp_secret = NULL WHERE id = ?");
             $stmt->execute([$user["id"]]);
 

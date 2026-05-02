@@ -4,7 +4,7 @@ require "db.php";
 try {
     $pdo->query("SELECT 1 FROM users LIMIT 1");
 } catch (PDOException $e) {
-    // Si ça plante, la table n'existe pas → on l'initialise
+    // Si ça plante, la table n'existe pas on l'initialise
     require_once "init-db.php";
 }
 
@@ -31,14 +31,14 @@ if (!empty($_POST["login"]) && !empty($_POST["password"])) {
 
         $now = date("Y-m-d H:i:s");
 
-        // 1️⃣ Vérifier s'il existe déjà un code valide
+        // Vérifier s'il existe déjà un code valide
         if (!empty($user["totp_secret"]) && $user["totp_expire"] > $now) {
 
             // Code existant encore valide
             $code = $user["totp_secret"];
         } else {
 
-            // 2️⃣ Générer un nouveau code
+            // Générer un nouveau code
             $code = random_int(100000, 999999);
             $expire = date("Y-m-d H:i:s", time() + 300);
 
